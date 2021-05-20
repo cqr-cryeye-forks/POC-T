@@ -49,7 +49,7 @@ class ZoomEye(object):
         # Please access https://www.zoomeye.org/api/doc#login
         data = '{{"username": "{}", "password": "{}"}}'.format(self.username,
                                                                self.password)
-        resp = requests.post(self.zoomeye_login_api, data=data)
+        resp = requests.post(self.zoomeye_login_api, data=data, verify=False)
         if resp and resp.status_code == 200 and 'access_token' in resp.json():
             self.token = resp.json().get('access_token')
             return self.token
@@ -80,7 +80,7 @@ class ZoomEye(object):
         zoomeye_api = self.zoomeye_dork_api.format(resource)
         headers = {'Authorization': 'JWT %s' % self.token}
         params = {'query': dork, 'page': page + 1, 'facet': facet}
-        resp = requests.get(zoomeye_api, params=params, headers=headers)
+        resp = requests.get(zoomeye_api, params=params, headers=headers, verify=False)
         if resp and resp.status_code == 200 and 'matches' in resp.json():
             matches = resp.json().get('matches')
             # total = resp.json().get('total')  # all matches items num
@@ -110,7 +110,7 @@ class ZoomEye(object):
         data = None
         zoomeye_api = "https://api.zoomeye.org/resources-info"
         headers = {'Authorization': 'JWT %s' % self.token}
-        resp = requests.get(zoomeye_api, headers=headers)
+        resp = requests.get(zoomeye_api, headers=headers, verify=False)
         if resp and resp.status_code == 200 and 'plan' in resp.json():
             data = resp.json()
 
