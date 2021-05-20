@@ -39,7 +39,7 @@ def poc():
         'Cookie': '',
         'User-Agent': 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64)',
     }
-    r = requests.post(post_url, timeout=10, data=d, headers=h)
+    r = requests.post(post_url, timeout=10, data=d, headers=h, verify=False)
     if 'success' in r.content:
         return True
     return False

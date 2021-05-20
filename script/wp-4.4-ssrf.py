@@ -42,7 +42,7 @@ def poc(url):
               'Content-Type': 'text/xml'}
     try:
         # 无法从回显判断
-        requests.post(targeturl, data=payload, headers=header, timeout=req_timeout)
+        requests.post(targeturl, data=payload, headers=header, timeout=req_timeout, verify=False)
         if c.verifyDNS(delay=3):
             return True
     except Exception, e:

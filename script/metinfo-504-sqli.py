@@ -28,7 +28,7 @@ def poc(url):
     for each in iterate_path(url):  # 对每个子路径尝试，增加20%结果
         target = each.rstrip('/') + payload
         try:
-            r = requests.get(target, timeout=20)
+            r = requests.get(target, timeout=20, verify=False)
             if r.status_code == 200 and cipher in r.content:
                 return url
         except Exception:

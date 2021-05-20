@@ -11,7 +11,7 @@ Usage:
     c = CloudEye()
     a = c.getRandomDomain('cdxy')
     try:
-        requests.get('http://' + a, timeout=1)
+        requests.get('http://' + a, timeout=1, verify=False)
     except Exception:
         pass
     print c.verifyDNS(delay=0)
@@ -48,13 +48,13 @@ class CloudEye:
         time.sleep(delay)
         query = self.random + '.' + self.custom
         api_base = 'http://cloudeye.me/api/{key}/{domain}/DNSLog/'.format(key=key, domain=query)
-        return requests.post(api_base).content
+        return requests.post(api_base, verify=False).content
 
     def getHttpRecord(self, delay=2):
         time.sleep(delay)
         query = self.random + '.' + self.custom
         api_base = 'http://cloudeye.me/api/{key}/{domain}/ApacheLog/'.format(key=key, domain=query)
-        return requests.post(api_base).content
+        return requests.post(api_base, verify=False).content
 
     def verifyDNS(self, delay=2):
         return 'dnslog.info' in self.getDnsRecord(delay)
@@ -67,11 +67,11 @@ def queryDnsRecord(domain, delay=2):
     time.sleep(delay)
     domain = domain.replace(uniq_domain + '.dnslog.info', '').rstrip('.')
     api_base = 'http://cloudeye.me/api/{key}/{domain}/DNSLog/'.format(key=key, domain=domain)
-    return requests.post(api_base).content
+    return requests.post(api_base, verify=False).content
 
 
 def queryHttpRecord(domain, delay=2):
     time.sleep(delay)
     domain = domain.replace(uniq_domain + '.dnslog.info', '').rstrip('.')
     api_base = 'http://cloudeye.me/api/{key}/{domain}/ApacheLog/'.format(key=key, domain=domain)
-    return requests.post(api_base).content
+    return requests.post(api_base, verify=False).content

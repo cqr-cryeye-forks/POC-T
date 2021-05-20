@@ -57,7 +57,7 @@ def redirectURL(url, timeout=3):
     """
     try:
         url = url if '://' in url else 'http://' + url
-        r = requests.get(url, allow_redirects=False, timeout=timeout)
+        r = requests.get(url, allow_redirects=False, timeout=timeout, verify=False)
         return r.headers.get('location') if r.status_code == 302 else url
     except Exception:
         return url
@@ -103,7 +103,8 @@ def IP2domain(base, timeout=3):
         c = requests.get(url=q,
                          headers={
                              'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0'},
-                         timeout=timeout
+                         timeout=timeout,
+                         verify=False
                          ).content
         p = re.compile(r'<cite>(.*?)</cite>')
         l = re.findall(p, c)

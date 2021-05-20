@@ -23,11 +23,11 @@ def poc(target):
     for each in iterate_path(base_url):
         try:
             url = each
-            g = requests.get(url, headers={'User-Agent': firefox()})
+            g = requests.get(url, headers={'User-Agent': firefox()}, verify=False)
             if g.status_code is 200 and 'Solr Admin' in g.content and 'Dashboard' in g.content:
                 return url
             url = url + '/solr/'
-            g = requests.get(url, headers={'User-Agent': firefox()})
+            g = requests.get(url, headers={'User-Agent': firefox()}, verify=False)
             if g.status_code is 200 and 'Solr Admin' in g.content and 'Dashboard' in g.content:
                 return url
         except Exception:

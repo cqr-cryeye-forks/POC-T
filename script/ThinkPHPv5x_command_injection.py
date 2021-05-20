@@ -30,7 +30,7 @@ def poc(url):
         
         target = url + payload
         
-        r = requests.get(target, headers={'User-Agent': chrome() })
+        r = requests.get(target, headers={'User-Agent': chrome() }, verify=False)
         r.raise_for_status()
 
         r.text.index(random_code) # 若返回包中没有随机6位数字，则抛出异常
